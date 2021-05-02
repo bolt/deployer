@@ -16,9 +16,6 @@ inventory('hosts.yaml');
 
 // Tasks
 
-task('build', function () {
-    cd('{{release_path}}');
-    run('npm run build');
-});
-
 after('deploy:failed', 'deploy:unlock');
+after('deploy:symlink', 'bolt:symlink:public');
+after('bolt:symlink:public', 'bolt:init-env');

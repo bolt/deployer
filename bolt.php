@@ -18,15 +18,11 @@ set('bin/console', function () {
     return parse('{{bin/php}} {{release_path}}/bin/console --no-interaction');
 });
 
-desc('Clear cache');
-task('deploy:website:cache:clear', function () {
-    run('{{bin/console}} cache:clear --no-warmup');
+// Tasks
+task('bolt:symlink:public', function() {
+    run('rm {{deploy_path}}/public && ln -s {{release_path}}/public/ {{deploy_path}}/public');
 });
 
-desc('Warm up cache');
-task('deploy:website:cache:warmup', function () {
-    run('{{bin/console}} cache:warmup');
+task('bolt:init-env', function() {
+    run('if [ ! -s {{deploy_path}}/shared/.env ]; then cat {{release_path}}/.env.dist > {{deploy_path}}/shared/.env; fi');
 });
-
-after('deploy:cache:clear', 'deploy:website:cache:clear');
-after('deploy:website:cache:clear', 'deploy:website:cache:warmup');
