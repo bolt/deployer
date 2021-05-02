@@ -1,0 +1,37 @@
+# The Base section sets the defaults for all stages. Common values:
+# - repository: URL of the repo, using `https://`, or `git@` protocol,
+# - default_branch: default branch to deploy
+# - keep_files: Array of files to keep between releases.
+# For additional values to set / override, see `Deploy.php` and the reference
+# at: https://deployer.org/docs/hosts.html#inventory-file
+
+.base: &base
+    repository: git@github.com:bobdenotter/judithvanhemert.com.git
+    default_branch: master
+
+# For each stage, use a unique key (used as "Host"), and list:
+#  <<: *base: Sets all values from `.base` as defaults. Override if needed
+#  - hostname: IP-address or hostname to SSH into
+#  - user: SSH username. Ideally set up as passwordless login
+#  - deploy_path: Base path to deploy in
+#  - stage: name of the stage. Used in `dep deploy [stagename]`
+#  - mysql_db: name of the database to dump as snapshot
+
+test:
+    <<: *base
+    hostname: knutsel.tech
+    user: pi
+    deploy_path: /home/pi/www/knutsel.tech
+
+acc:
+    <<: *base
+    stage: acc
+    hostname: web01.example.org
+    user: username
+    deploy_path: /var/www/acc.example.org
+
+prod:
+    <<: *base
+    stage: prod
+    hostname: web01.example.org
+    user: username
