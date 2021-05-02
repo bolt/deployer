@@ -7,11 +7,6 @@ require_once 'recipe/symfony4.php';
 add('recipes', ['bolt']);
 
 
-set('application', 'deployer');
-set('deploy_path', '~/{{application}}');
-set('writable_mode', 'chmod');
-set('writable_chmod_mode', '0777');
-
 add('shared_files', ['.env']);
 add('shared_dirs', ['public/files', 'public/theme']);
 add('writable_dirs', ['public/files', 'public/theme', 'var/data']);
@@ -33,11 +28,5 @@ task('deploy:website:cache:warmup', function () {
     run('{{bin/console}} cache:warmup');
 });
 
-task('build', function () {
-    cd('{{release_path}}');
-    run('npm run build');
-});
-
-after('deploy:failed', 'deploy:unlock');
-
-
+after('deploy:cache:clear', 'deploy:website:cache:clear');
+after('deploy:website:cache:clear', 'deploy:website:cache:warmup');
