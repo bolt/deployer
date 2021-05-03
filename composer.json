@@ -1,0 +1,15 @@
+{
+    "name": "bolt/deployer",
+    "description": "A Bolt 4/5 recipe and configuration to deploy websites using Deployer",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bob den Otter",
+            "email": "bob@twokings.nl"
+        }
+    ],
+    "require": {
+        "deployer/deployer": "^6.8"
+    }
+}
