@@ -4,11 +4,10 @@ namespace Deployer;
 
 require_once 'recipe/symfony4.php';
 
+// Config
 add('recipes', ['bolt']);
-
-
 add('shared_files', ['.env']);
-add('shared_dirs', ['public/files', 'public/theme']);
+add('shared_dirs', ['public/files', 'public/theme', 'var/data']);
 add('writable_dirs', ['public/files', 'public/theme', 'var/', 'config/']);
 set('allow_anonymous_stats', false);
 set('git_tty', false);
@@ -26,3 +25,7 @@ task('bolt:symlink:public', function() {
 task('bolt:init-env', function() {
     run('if [ ! -s {{deploy_path}}/shared/.env ]; then cat {{release_path}}/.env.dist > {{deploy_path}}/shared/.env; fi');
 });
+
+after('deploy:failed', 'deploy:unlock');
+after('deploy:symlink', 'bolt:symlink:public');
+after('bolt:symlink:public', 'bolt:init-env');
