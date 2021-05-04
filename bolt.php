@@ -9,7 +9,7 @@ add('recipes', ['bolt']);
 
 add('shared_files', ['.env']);
 add('shared_dirs', ['public/files', 'public/theme']);
-add('writable_dirs', ['public/files', 'public/theme', 'var/data']);
+add('writable_dirs', ['public/files', 'public/theme', 'var/', 'config/']);
 set('allow_anonymous_stats', false);
 set('git_tty', false);
 set('ssh_multiplexing', false);
@@ -20,7 +20,7 @@ set('bin/console', function () {
 
 // Tasks
 task('bolt:symlink:public', function() {
-    run('rm {{deploy_path}}/public && ln -s {{release_path}}/public/ {{deploy_path}}/public');
+    run('rm -f {{deploy_path}}/public && ln -s {{release_path}}/public/ {{deploy_path}}/public');
 });
 
 task('bolt:init-env', function() {

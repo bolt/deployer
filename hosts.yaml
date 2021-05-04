@@ -6,8 +6,8 @@
 # at: https://deployer.org/docs/hosts.html#inventory-file
 
 .base: &base
-    repository: git@github.com:bolt/project.git
-    default_branch: master
+    repository: https://github.com/bolt/project.git
+    branch: master
 
 # For each stage, use a unique key (used as "Host"), and list:
 #  <<: *base: Sets all values from `.base` as defaults. Override if needed
