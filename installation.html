@@ -1,0 +1,180 @@
+                                                                                                                <!DOCTYPE html>
+<html lang="en">
+        <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Installation &raquo; BoltForms</title>
+
+        <link rel="stylesheet" href="https://bolt.github.io/deployer/css/main.css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+        <script defer src="https://use.fontawesome.com/releases/v5.0.3/js/all.js"></script>
+    </head>    <body>
+
+        <div class="docs columns is-gapless is-desktop">
+            <aside class="docs__sidebar">
+                <div class="docs__sidebar--brand">
+                    <div class="brand">
+                        <a class="brand--text" href="https://bolt.github.io/deployer/">
+                            BoltForms
+                        </a>
+                    </div>
+                    <button class="button button-bars is-primary is-hidden-desktop">
+                        <span class="icon">
+                        <i class="fa fa-bars"></i>
+                        </span>
+                    </button>
+                    <button class="button button-search is-primary is-hidden-desktop">
+                        <span class="icon">
+                        <i class="fa fa-search"></i>
+                        </span>
+                    </button>
+                </div>
+
+                
+<div class="docs__sidebar--search">
+    <form action="https://bolt.github.io/deployer/search.html" class="control has-icons-right">
+        <input class="input" type="text" name="q" id="tipue_search_input" pattern=".{3,}" title="At least 3 characters" placeholder="Search…" required>
+        <span class="icon is-small is-right">
+            <i class="icon-search"></i>
+        </span>
+    </form>
+</div>
+
+<div class="docs__sidebar--menu">
+    <nav id="sidebar" class="menu" role="navigation">
+        <ul class="menu-list">
+                                                                            <li class="">
+                    <a href="https://bolt.github.io/deployer/index.html" class="">
+                        Getting Started
+                    </a>
+                </li>
+                                                                            <li class="">
+                    <a href="https://bolt.github.io/deployer/requirements.html" class="">
+                        System Requirements
+                    </a>
+                </li>
+                                                                            <li class="">
+                    <a href="https://bolt.github.io/deployer/installation.html" class="is-active">
+                        Installation
+                    </a>
+                </li>
+                                            <li class="divider">Usage</li>
+                                                                <li class="">
+                    <a href="https://bolt.github.io/deployer/configuration.html" class="">
+                        Configuration
+                    </a>
+                </li>
+                                                                            <li class="">
+                    <a href="https://bolt.github.io/deployer/initial_run.html" class="">
+                        Initial run
+                    </a>
+                </li>
+                                            <li class="divider">Other</li>
+                                                                <li class="">
+                    <a href="https://bolt.github.io/deployer/tips.html" class="">
+                        Tips
+                    </a>
+                </li>
+                                                                            <li class="">
+                    <a href="https://bolt.github.io/deployer/troubleshooting.html" class="">
+                        Troubleshooting
+                    </a>
+                </li>
+                    </ul>
+    </nav>
+</div>
+
+                <div class="docs__sidebar--footer is-hidden-touch">
+                    <p class="text-muted">
+                        Generated with ease by: <br>
+                        <a href="http://couscous.io" title="Markdown website generator">Couscous</a> |
+                        <a href="https://github.com/bolt/Extension-docs-template" title="Bolt extension documentation template">Bolt template</a>.
+                    </p>
+                </div>
+            </aside>
+            <main class="docs__main">
+
+                <header class="docs__main--header">
+    <div class="pagetitle">
+        Installation
+    </div>
+
+            <a href="https://github.com/bolt/deployer" class="button is-info is-hidden-touch" aria-label="This extension on GitHub">
+            <span class="icon is-small">
+                <i class="fas fa-home"></i>
+            </span>
+            <span>GitHub</span>
+        </a>
+        <a href="https://github.com/bolt/deployer/fork" class="button is-info is-hidden-touch" aria-label="Fork bolt/deployer on GitHub">
+            <span class="icon is-small">
+                <i class="fas fa-code-branch"></i>
+            </span>
+            <span>Fork</span>
+        </a>
+                        <a href="https://github.com/bolt/deployer/edit/main/docs/installation.md" class="button is-info is-hidden-touch" aria-label="Edit the contents of this page on GitHub">
+            <span class="icon is-small">
+                <i class="fab fa-github"></i>
+            </span>
+            <span>Edit this page</span>
+        </a>
+        
+    </header>
+                <div class="docs__main--body">
+                    <section id="content" class="content">
+                        <h1 id="installation">Installation</h1>
+<p>This Deployer recipe can be used in a number of ways, whichever you prefer. It
+can be used as a stand-alone 'project', so that you can deploy a website,
+without having to have a full local copy of the website itself. You can also
+install it as a dependency of your own project, so that the configuration to
+deploy the site is stored with the project itself.</p>
+<p>Regardless of which option you prefer, you'll need to have <em>both</em> the recipe,
+as well as Deployer itself.</p>
+<h2 id="get-the-recipe">Get the recipe</h2>
+<p>The easiest way to create a stand-alone version is to run the following:</p>
+<pre><code class="language-bash">composer create-project bolt/deployer</code></pre>
+<p>Alternatively, click the <a href="https://github.com/bolt/project/generate">&quot;Use this template&quot;</a>-button on the
+<code>bolt/project</code> repository to instantiate your own repository as a copy of the
+original.</p>
+<p>Lastly, to add it to an existing project, you can run
+<code>composer require --dev bolt/deployer</code> to install it as a dependency of your
+project.</p>
+<h2 id="install-deployer">Install Deployer</h2>
+<p>If you're using the <code>composer create</code>'d version or if you've installed the
+recipe as a dependency, you can run <code>composer install</code> to install Deployer as a
+dependency. You can then run it using <code>vendor/bin/dep</code>.</p>
+<p>You can also install Deployer as a global composer binary. To do so, run</p>
+<pre><code class="language-bash">curl -LO https://deployer.org/deployer.phar
+mv deployer.phar /usr/local/bin/dep
+chmod +x /usr/local/bin/dep</code></pre>
+<p>After doing this, you should be able to run <code>dep</code> from anywhere on your local
+environment.</p>
+<p>If neither of these two work for you, you can get Deployer by <a href="https://deployer.org/download/">downloading the
+Phar file manually</a>, or by running just:</p>
+<pre><code class="language-bash">curl -LO https://deployer.org/deployer.phar</code></pre>
+<p>Now you can run <code>php deployer.phar</code> to run Deployer.</p>
+                    </section>
+                </div>
+            </main>
+        </div>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+var tipuesearch_pages = ["https://bolt.github.io/deployer/index.html", "https://bolt.github.io/deployer/requirements.html", "https://bolt.github.io/deployer/installation.html", "https://bolt.github.io/deployer/configuration.html", "https://bolt.github.io/deployer/initial_run.html", "https://bolt.github.io/deployer/tips.html", "https://bolt.github.io/deployer/troubleshooting.html"];
+</script>
+<script src="https://bolt.github.io/deployer/tipuesearch/tipuesearch_set.js"></script>
+<script src="https://bolt.github.io/deployer/tipuesearch/tipuesearch.min.js"></script>
+<script src="https://bolt.github.io/deployer/js/bundle.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#tipue_search_input').tipuesearch({
+            'mode': 'live',
+            'liveDescription': '#content',
+            'liveContent': '#content'
+        });
+    });
+</script>
+    </body>
+</html>

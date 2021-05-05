@@ -1,0 +1,229 @@
+                                                                                                                <!DOCTYPE html>
+<html lang="en">
+        <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Configuration &raquo; BoltForms</title>
+
+        <link rel="stylesheet" href="https://bolt.github.io/deployer/css/main.css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+        <script defer src="https://use.fontawesome.com/releases/v5.0.3/js/all.js"></script>
+    </head>    <body>
+
+        <div class="docs columns is-gapless is-desktop">
+            <aside class="docs__sidebar">
+                <div class="docs__sidebar--brand">
+                    <div class="brand">
+                        <a class="brand--text" href="https://bolt.github.io/deployer/">
+                            BoltForms
+                        </a>
+                    </div>
+                    <button class="button button-bars is-primary is-hidden-desktop">
+                        <span class="icon">
+                        <i class="fa fa-bars"></i>
+                        </span>
+                    </button>
+                    <button class="button button-search is-primary is-hidden-desktop">
+                        <span class="icon">
+                        <i class="fa fa-search"></i>
+                        </span>
+                    </button>
+                </div>
+
+                
+<div class="docs__sidebar--search">
+    <form action="https://bolt.github.io/deployer/search.html" class="control has-icons-right">
+        <input class="input" type="text" name="q" id="tipue_search_input" pattern=".{3,}" title="At least 3 characters" placeholder="Search…" required>
+        <span class="icon is-small is-right">
+            <i class="icon-search"></i>
+        </span>
+    </form>
+</div>
+
+<div class="docs__sidebar--menu">
+    <nav id="sidebar" class="menu" role="navigation">
+        <ul class="menu-list">
+                                                                            <li class="">
+                    <a href="https://bolt.github.io/deployer/index.html" class="">
+                        Getting Started
+                    </a>
+                </li>
+                                                                            <li class="">
+                    <a href="https://bolt.github.io/deployer/requirements.html" class="">
+                        System Requirements
+                    </a>
+                </li>
+                                                                            <li class="">
+                    <a href="https://bolt.github.io/deployer/installation.html" class="">
+                        Installation
+                    </a>
+                </li>
+                                            <li class="divider">Usage</li>
+                                                                <li class="">
+                    <a href="https://bolt.github.io/deployer/configuration.html" class="is-active">
+                        Configuration
+                    </a>
+                </li>
+                                                                            <li class="">
+                    <a href="https://bolt.github.io/deployer/initial_run.html" class="">
+                        Initial run
+                    </a>
+                </li>
+                                            <li class="divider">Other</li>
+                                                                <li class="">
+                    <a href="https://bolt.github.io/deployer/tips.html" class="">
+                        Tips
+                    </a>
+                </li>
+                                                                            <li class="">
+                    <a href="https://bolt.github.io/deployer/troubleshooting.html" class="">
+                        Troubleshooting
+                    </a>
+                </li>
+                    </ul>
+    </nav>
+</div>
+
+                <div class="docs__sidebar--footer is-hidden-touch">
+                    <p class="text-muted">
+                        Generated with ease by: <br>
+                        <a href="http://couscous.io" title="Markdown website generator">Couscous</a> |
+                        <a href="https://github.com/bolt/Extension-docs-template" title="Bolt extension documentation template">Bolt template</a>.
+                    </p>
+                </div>
+            </aside>
+            <main class="docs__main">
+
+                <header class="docs__main--header">
+    <div class="pagetitle">
+        Configuration
+    </div>
+
+            <a href="https://github.com/bolt/deployer" class="button is-info is-hidden-touch" aria-label="This extension on GitHub">
+            <span class="icon is-small">
+                <i class="fas fa-home"></i>
+            </span>
+            <span>GitHub</span>
+        </a>
+        <a href="https://github.com/bolt/deployer/fork" class="button is-info is-hidden-touch" aria-label="Fork bolt/deployer on GitHub">
+            <span class="icon is-small">
+                <i class="fas fa-code-branch"></i>
+            </span>
+            <span>Fork</span>
+        </a>
+                        <a href="https://github.com/bolt/deployer/edit/main/docs/configuration.md" class="button is-info is-hidden-touch" aria-label="Edit the contents of this page on GitHub">
+            <span class="icon is-small">
+                <i class="fab fa-github"></i>
+            </span>
+            <span>Edit this page</span>
+        </a>
+        
+    </header>
+                <div class="docs__main--body">
+                    <section id="content" class="content">
+                        <h1 id="configuration">Configuration</h1>
+<p>Depending on how you've installed Deployer, running a deploy is done through
+either:</p>
+<ul>
+<li><code>dep deploy</code>, if you've installed Deployer globally</li>
+<li><code>vendor/bin/dep deploy</code>, if it's installed as a Composer dependency</li>
+<li><code>php deployer.phar deploy</code>, if you've manually downloaded deployer.phar</li>
+</ul>
+<p>In the following parts of this documentation we'll use <code>dep deploy</code> in the
+examples, but you can substitute these for your usecase.</p>
+<h2 id="initial-configuration">Initial configuration</h2>
+<p>This tool comes with three files where you can configure its workings:</p>
+<ul>
+<li><code>hosts.yaml</code> - YAML configuration of the target hosts to deploy to</li>
+<li><code>deploy.php</code> - The configuration of the recipe, using Deployer</li>
+<li><code>bolt.php</code> - The Bolt specific Deployer recipe configuration</li>
+</ul>
+<p>The first and foremost thing to configure is the <code>hosts.yaml</code> file.</p>
+<pre><code class="language-yaml"># The Base section sets the defaults for all stages. Common values:
+# - repository: URL of the repo, using `https://`, or `git@` protocol,
+# - branch: default branch to deploy
+
+.base: &amp;base
+    repository: https://github.com/bolt/project.git
+    branch: master
+
+# For each stage, use a unique key (used as "Host"), and list:
+#  &lt;&lt;: *base: Sets all values from `.base` as defaults. Override if needed
+#  - hostname: IP-address or hostname to SSH into
+#  - user: SSH username. Ideally set up as passwordless login
+#  - deploy_path: Base path to deploy in
+#  - stage: name of the stage. Used in `dep deploy [stagename]`
+
+test:
+    &lt;&lt;: *base
+    hostname: knutsel.tech
+    user: pi
+    deploy_path: /home/pi/www/knutsel.tech
+
+acc:
+    &lt;&lt;: *base
+    stage: acc
+    hostname: web01.example.org
+    user: username
+    deploy_path: /var/www/acc.example.org
+
+prod:
+    &lt;&lt;: *base
+    stage: prod
+    hostname: web02.example.org
+    user: username
+    deploy_path: /var/www/example.org</code></pre>
+<p>By default, this file is structured with multiple target environments in mind,
+with a <code>.base</code> node for the overarching settings for all deployment stages.
+It's set up for a generic <a href="https://www.phparch.com/2009/07/professional-programming-dtap-%e2%80%93-part-1-what-is-dtap/">DTAP environment</a>:</p>
+<ul>
+<li>Development: Your (and other developer's) local working environment</li>
+<li>Test: Where the client can poke at things</li>
+<li>Acceptance: For final acceptance before going live</li>
+<li>Production: For the live, production version of the site.</li>
+</ul>
+<p>Obviously, you're free to re-structure this entirely to your needs and
+preferences.</p>
+<p>To verify the configuration of the configured hosts, run <code>dep config:hosts</code>.</p>
+<p><img src="https://user-images.githubusercontent.com/1833361/117145670-adb4f180-adb3-11eb-9111-62d747b8bb4b.png" alt="hosts" /></p>
+<p>Next, review the contents of <code>deploy.php</code>. This is the actual configuration of
+the Deployer Recipe. It extends the <code>bolt.php</code> recipe, which comes with this
+tool. It, in turn, extends Deployer's <a href="https://github.com/deployphp/deployer/blob/master/recipe/symfony.php"><code>symfony4.php</code></a> recipe.</p>
+<p>In most cases, you'll only need to make modifications in your <code>deploy.php</code>. If
+you need to make other settings, you can always add them here. Deployer is a
+tool that comes with a lot of options. To get a feeling of what's possible, we
+recommend reading the <a href="https://deployer.org/docs/hosts.html">Deployer Website</a>, but also the built-in
+<a href="https://github.com/deployphp/deployer/tree/master/recipe">recipes</a> and <a href="https://github.com/deployphp/deployer/tree/master/recipe/deploy">deploy tasks</a>.</p>
+<h2 id="authentication">Authentication</h2>
+<p>As mentioned before, it's probably easiest to set up the target environments so
+that Deployer can log on passwordless. You can do this by <a href="https://linuxize.com/post/how-to-setup-passwordless-ssh-login/">setting up
+SSH-keys</a>. Deployer allows for other authentication methods as well.
+You can have it use your existing <code>~/.ssh/config</code> set up, or even by pointing
+it at your actual private key.</p>
+<p>Check the <a href="https://deployer.org/docs/hosts.html">Hosts page</a> at the Deployer site for all options.</p>
+                    </section>
+                </div>
+            </main>
+        </div>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+var tipuesearch_pages = ["https://bolt.github.io/deployer/index.html", "https://bolt.github.io/deployer/requirements.html", "https://bolt.github.io/deployer/installation.html", "https://bolt.github.io/deployer/configuration.html", "https://bolt.github.io/deployer/initial_run.html", "https://bolt.github.io/deployer/tips.html", "https://bolt.github.io/deployer/troubleshooting.html"];
+</script>
+<script src="https://bolt.github.io/deployer/tipuesearch/tipuesearch_set.js"></script>
+<script src="https://bolt.github.io/deployer/tipuesearch/tipuesearch.min.js"></script>
+<script src="https://bolt.github.io/deployer/js/bundle.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#tipue_search_input').tipuesearch({
+            'mode': 'live',
+            'liveDescription': '#content',
+            'liveContent': '#content'
+        });
+    });
+</script>
+    </body>
+</html>
