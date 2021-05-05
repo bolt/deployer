@@ -1,9 +1,6 @@
 # The Base section sets the defaults for all stages. Common values:
 # - repository: URL of the repo, using `https://`, or `git@` protocol,
-# - default_branch: default branch to deploy
-# - keep_files: Array of files to keep between releases.
-# For additional values to set / override, see `Deploy.php` and the reference
-# at: https://deployer.org/docs/hosts.html#inventory-file
+# - branch: default branch to deploy
 
 .base: &base
     repository: https://github.com/bolt/project.git
@@ -32,5 +29,6 @@ acc:
 prod:
     <<: *base
     stage: prod
-    hostname: web01.example.org
+    hostname: web02.example.org
     user: username
+    deploy_path: /var/www/example.org

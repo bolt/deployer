@@ -7,8 +7,8 @@ require_once 'recipe/symfony4.php';
 // Config
 add('recipes', ['bolt']);
 add('shared_files', ['.env']);
-add('shared_dirs', ['public/files', 'public/theme', 'var/data']);
-add('writable_dirs', ['public/files', 'public/theme', 'var/', 'config/']);
+add('shared_dirs', ['public/files', 'var/data']);
+add('writable_dirs', ['public/files', 'public/thumbs', 'var/', 'config/']);
 set('allow_anonymous_stats', false);
 set('git_tty', false);
 set('ssh_multiplexing', false);
@@ -18,11 +18,11 @@ set('bin/console', function () {
 });
 
 // Tasks
-task('bolt:symlink:public', function() {
+task('bolt:symlink:public', function () {
     run('rm -f {{deploy_path}}/public && ln -s {{release_path}}/public/ {{deploy_path}}/public');
 });
 
-task('bolt:init-env', function() {
+task('bolt:init-env', function () {
     run('if [ ! -s {{deploy_path}}/shared/.env ]; then cat {{release_path}}/.env.dist > {{deploy_path}}/shared/.env; fi');
 });
 

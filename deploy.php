@@ -18,6 +18,7 @@ task('reload:php-fpm', function () {
     // run('sudo /etc/init.d/php-fpm restart');
     run('sudo service php7.3-fpm restart');
 });
+
 after('deploy', 'reload:php-fpm');
 after('rollback', 'reload:php-fpm');
 
