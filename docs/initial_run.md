@@ -1,18 +1,20 @@
 Initial run
 ===========
 
-In order to do its work, Deployer creates a new build of the site on the remote server, keeping the files it needs to, and intalling the rest. If you'd just run `dep deploy`, you'd bump into a number of issues, if the remote server isn't yet set up with an initial build of the site.
+In order to do its work, Deployer creates a new build of the site on the remote
+server, keeping the files it needs to, and intalling the rest. If you'd just
+run `dep deploy`, you'd bump into a number of issues, if the remote server
+isn't yet set up with an initial build of the site.
 
-Run the following commands:
+Run the following command:
 
 ```bash
-dep deploy:prepare
-dep deploy:release
-dep deploy:update_code
-dep deploy:shared
+dep initialise
 ```
 
-Now, after logging in using SSH (using your preferred way, or by means of `dep ssh`), you can see the initial structure created by Deployer for our Bolt projects.
+Now, after logging in using SSH (using your preferred way, or by means of `dep
+ssh`), you can see the initial structure created by Deployer for our Bolt
+projects.
 
 ```text
 .
@@ -53,15 +55,26 @@ Now, after logging in using SSH (using your preferred way, or by means of `dep s
 
 Inspecting this structure, we'll notice the following interesting parts:
 
-- There's a `release` symlink, that points to the current release, in the `releases` folder. After the setup is done, this will be replaced by a `current` symlink that always points to the current release.
-- There's a `public` symlink. This is the one you will want to point your webserver configuration at, because this will always point to the `public/` folder in the last succesful deploy.
-- `releases/1/` is a checkout of the git repository, that's used for the deployment.
-- In it, there's the `public/` folder, which contains a number of symlinks to various items in the `shared` folder. This will ensure that what's in here will not get lost on subsequent deploys.
-- The `shared/` folder will contain stubs of files and folders, that will be shared across subsequent deploys.
+- There's a `release` symlink, that points to the current release, in the
+  `releases` folder. After the setup is done, this will be replaced by a
+  `current` symlink that always points to the current release.
+- There's a `public` symlink. This is the one you will want to point your
+  webserver configuration at, because this will always point to the `public/`
+  folder in the last succesful deploy.
+- `releases/1/` is a checkout of the git repository, that's used for the
+  deployment.
+- In it, there's the `public/` folder, which contains a number of symlinks to
+  various items in the `shared` folder. This will ensure that what's in here
+  will not get lost on subsequent deploys.
+- The `shared/` folder will contain stubs of files and folders, that will be
+  shared across subsequent deploys.
 
 Now, to get your site-to-be working, you'll need to do the following things:
 
-- Configure your webserver so that the webroot points to the `public` symlink. Note that it should **not** point to where the symlink is pointing, because that location is volatile: It will change on every deploy.
+- Configure your webserver so that the webroot points to the `public` symlink.
+  Note that it should **not** point to where the symlink is pointing, because
+  that location is volatile: It will change on every deploy.
 - Place the contents of `files/` in `shared/public/files/`.
 - If you're using SQLite, place the database file in `shared/var/data`.
-- Apply the environment-specific configuration in `shared/.env.local` or your `ENV` settings.
+- Apply the environment-specific configuration in `shared/.env.local` or your
+  `ENV` settings.
