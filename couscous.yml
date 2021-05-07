@@ -35,6 +35,8 @@ menu:
         section: Usage
     initial_run.md:
         label: Initial run
+    regular_usage.md:
+        label: Regular usage
     # handlers/save_to_database.md:
     #     label: Save to Database
     #     class: sub

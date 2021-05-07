@@ -12,14 +12,17 @@ add('writable_dirs', ['public/files', 'public/thumbs', 'var/', 'config/']);
 set('allow_anonymous_stats', false);
 set('git_tty', false);
 set('ssh_multiplexing', true);
+set('vhost_symlink', null);
 
 set('bin/console', function () {
-    return parse('{{bin/php}} {{release_path}}/bin/console --no-interaction');
+    return parse('{{release_path}}/bin/console --no-interaction');
 });
 
 // Tasks
 task('bolt:symlink:public', function () {
-    run('rm -f {{deploy_path}}/public && ln -s {{release_path}}/public/ {{deploy_path}}/public');
+    if (get('vhost_symlink')) {
+        run('rm -rf {{deploy_path}}/{{vhost_symlink}} && ln -s {{release_path}}/public/ {{deploy_path}}/{{vhost_symlink}}');
+    }
 });
 
 desc('Initialise .env');

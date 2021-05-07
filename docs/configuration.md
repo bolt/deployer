@@ -42,7 +42,8 @@ test:
     <<: *base
     hostname: knutsel.tech
     user: pi
-    deploy_path: /home/pi/www/knutsel.tech
+    deploy_path: /home/pi/www/knutsel.tech/deployer
+    vhost_symlink: ../public
 
 acc:
     <<: *base
@@ -75,6 +76,18 @@ To verify the configuration of the configured hosts, run `dep config:hosts`.
 
 ![hosts](https://user-images.githubusercontent.com/1833361/117145670-adb4f180-adb3-11eb-9111-62d747b8bb4b.png)
 
+`deploy_path` and `vhost_symlink` determine where Deployer will put its files, and it allows you to keep an always up-to-date symlink to the latest deployment. This is handy for two different scenarios:
+
+- If you can configure the location of the vhost in your webserver's
+  configuration, simply set it to `…/deployer/current`, whit points to the
+  latest succesful release. You can then set `vhost_symlink: ~`, to prevent
+  additional symlinks to be set up.
+- If you can not configure the location, `vhost_symlink` allows for the reverse:
+  set it up so that it replaces the location of where the vhost points to. For
+  example, shared hosting often has a fixed `public_html` folder. You can have
+  Deployer deploy to a folder that's next to it, and have `public_html` point to
+  the current deployment.
+
 Next, review the contents of `deploy.php`. This is the actual configuration of
 the Deployer Recipe. It extends the `bolt.php` recipe, which comes with this
 tool. It, in turn, extends Deployer's [`symfony4.php`][sf4] recipe.
@@ -95,9 +108,6 @@ You can have it use your existing `~/.ssh/config` set up, or even by pointing
 it at your actual private key.
 
 Check the [Hosts page][hosts] at the Deployer site for all options.
-
-
-
 
 [dtap]: https://www.phparch.com/2009/07/professional-programming-dtap-%e2%80%93-part-1-what-is-dtap/
 [ssh-keys]: https://linuxize.com/post/how-to-setup-passwordless-ssh-login/

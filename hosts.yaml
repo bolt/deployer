@@ -1,10 +1,10 @@
 # The Base section sets the defaults for all stages. Common values:
 # - repository: URL of the repo, using `https://`, or `git@` protocol,
-# - branch: default branch to deploy
+# - default_branch: default branch to deploy
 
 .base: &base
     repository: https://github.com/bolt/project.git
-    branch: master
+    default_branch: main
 
 # For each stage, use a unique key (used as "Host"), and list:
 #  <<: *base: Sets all values from `.base` as defaults. Override if needed
@@ -13,29 +13,26 @@
 #  - deploy_path: Base path to deploy in
 #  - stage: name of the stage. Used in `dep deploy [stagename]`
 
-# test:
-#     <<: *base
-#     hostname: knutsel.tech
-#     user: pi
-#     deploy_path: /home/pi/www/knutsel.tech
-
-# acc:
-#     <<: *base
-#     stage: acc
-#     hostname: web01.example.org
-#     user: username
-#     deploy_path: /var/www/acc.example.org
+test:
+    <<: *base
+    stage: test
+    hostname: knutsel.tech
+    user: pi
+    deploy_path: /home/pi/www/knutsel.tech/deployer
+    vhost_symlink: ../public
 
 acc:
     <<: *base
-    # stage: acc
-    hostname: acc.judithvanhemert.com
-    user: judith
-    deploy_path: /home/judith/domains/acc.judithvanhemert.com
+    stage: acc
+    hostname: web01.example.org
+    user: username
+    deploy_path: /var/www/acc.example.org/deployer
+    vhost_symlink: ~
 
 prod:
     <<: *base
     stage: prod
     hostname: web02.example.org
     user: username
-    deploy_path: /var/www/example.org
+    deploy_path: /var/www/example.org/deployer
+    vhost_symlink: ~

@@ -5,10 +5,9 @@ require 'bolt.php';
 
 // Config
 set('application', 'deployer');
-set('deploy_path', '~/{{application}}');
 set('writable_mode', 'chmod');
 set('writable_chmod_mode', '0777');
-
+set('default_stage', 'test');
 
 // Hosts
 inventory('hosts.yaml');
@@ -19,6 +18,6 @@ task('reload:php-fpm', function () {
     run('sudo service php7.3-fpm restart');
 });
 
-after('deploy', 'reload:php-fpm');
-after('rollback', 'reload:php-fpm');
+// after('deploy', 'reload:php-fpm');
+// after('rollback', 'reload:php-fpm');
 
