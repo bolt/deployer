@@ -13,18 +13,25 @@
 #  - deploy_path: Base path to deploy in
 #  - stage: name of the stage. Used in `dep deploy [stagename]`
 
-test:
-    <<: *base
-    hostname: knutsel.tech
-    user: pi
-    deploy_path: /home/pi/www/knutsel.tech
+# test:
+#     <<: *base
+#     hostname: knutsel.tech
+#     user: pi
+#     deploy_path: /home/pi/www/knutsel.tech
+
+# acc:
+#     <<: *base
+#     stage: acc
+#     hostname: web01.example.org
+#     user: username
+#     deploy_path: /var/www/acc.example.org
 
 acc:
     <<: *base
-    stage: acc
-    hostname: web01.example.org
-    user: username
-    deploy_path: /var/www/acc.example.org
+    # stage: acc
+    hostname: acc.judithvanhemert.com
+    user: judith
+    deploy_path: /home/judith/domains/acc.judithvanhemert.com
 
 prod:
     <<: *base

@@ -11,7 +11,7 @@ add('shared_dirs', ['public/files', 'var/data']);
 add('writable_dirs', ['public/files', 'public/thumbs', 'var/', 'config/']);
 set('allow_anonymous_stats', false);
 set('git_tty', false);
-set('ssh_multiplexing', false);
+set('ssh_multiplexing', true);
 
 set('bin/console', function () {
     return parse('{{bin/php}} {{release_path}}/bin/console --no-interaction');
@@ -36,6 +36,7 @@ task('initialise', [
     'deploy:prepare',
     'deploy:release',
     'deploy:update_code',
+    'deploy:writable',
     'deploy:shared',
     'bolt:symlink:public',
     'bolt:init-env',
