@@ -1,10 +1,10 @@
-                                                                                                                <!DOCTYPE html>
+                                                                                                                            <!DOCTYPE html>
 <html lang="en">
         <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Configuration &raquo; BoltForms</title>
+        <title>Configuration &raquo; Bolt Deployer</title>
 
         <link rel="stylesheet" href="https://bolt.github.io/deployer/css/main.css">
         <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,600,700" rel="stylesheet">
@@ -16,7 +16,7 @@
                 <div class="docs__sidebar--brand">
                     <div class="brand">
                         <a class="brand--text" href="https://bolt.github.io/deployer/">
-                            BoltForms
+                            Bolt Deployer
                         </a>
                     </div>
                     <button class="button button-bars is-primary is-hidden-desktop">
@@ -68,6 +68,11 @@
                                                                             <li class="">
                     <a href="https://bolt.github.io/deployer/initial_run.html" class="">
                         Initial run
+                    </a>
+                </li>
+                                                                            <li class="">
+                    <a href="https://bolt.github.io/deployer/regular_usage.html" class="">
+                        Regular usage
                     </a>
                 </li>
                                             <li class="divider">Other</li>
@@ -159,7 +164,8 @@ test:
     &lt;&lt;: *base
     hostname: knutsel.tech
     user: pi
-    deploy_path: /home/pi/www/knutsel.tech
+    deploy_path: /home/pi/www/knutsel.tech/deployer
+    vhost_symlink: ../public
 
 acc:
     &lt;&lt;: *base
@@ -187,6 +193,18 @@ It's set up for a generic <a href="https://www.phparch.com/2009/07/professional-
 preferences.</p>
 <p>To verify the configuration of the configured hosts, run <code>dep config:hosts</code>.</p>
 <p><img src="https://user-images.githubusercontent.com/1833361/117145670-adb4f180-adb3-11eb-9111-62d747b8bb4b.png" alt="hosts" /></p>
+<p><code>deploy_path</code> and <code>vhost_symlink</code> determine where Deployer will put its files, and it allows you to keep an always up-to-date symlink to the latest deployment. This is handy for two different scenarios:</p>
+<ul>
+<li>If you can configure the location of the vhost in your webserver's
+configuration, simply set it to <code>…/deployer/current</code>, whit points to the
+latest succesful release. You can then set <code>vhost_symlink: ~</code>, to prevent
+additional symlinks to be set up.</li>
+<li>If you can not configure the location, <code>vhost_symlink</code> allows for the reverse:
+set it up so that it replaces the location of where the vhost points to. For
+example, shared hosting often has a fixed <code>public_html</code> folder. You can have
+Deployer deploy to a folder that's next to it, and have <code>public_html</code> point to
+the current deployment.</li>
+</ul>
 <p>Next, review the contents of <code>deploy.php</code>. This is the actual configuration of
 the Deployer Recipe. It extends the <code>bolt.php</code> recipe, which comes with this
 tool. It, in turn, extends Deployer's <a href="https://github.com/deployphp/deployer/blob/master/recipe/symfony.php"><code>symfony4.php</code></a> recipe.</p>
@@ -211,7 +229,7 @@ it at your actual private key.</p>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <script>
-var tipuesearch_pages = ["https://bolt.github.io/deployer/index.html", "https://bolt.github.io/deployer/requirements.html", "https://bolt.github.io/deployer/installation.html", "https://bolt.github.io/deployer/configuration.html", "https://bolt.github.io/deployer/initial_run.html", "https://bolt.github.io/deployer/tips.html", "https://bolt.github.io/deployer/troubleshooting.html"];
+var tipuesearch_pages = ["https://bolt.github.io/deployer/index.html", "https://bolt.github.io/deployer/requirements.html", "https://bolt.github.io/deployer/installation.html", "https://bolt.github.io/deployer/configuration.html", "https://bolt.github.io/deployer/initial_run.html", "https://bolt.github.io/deployer/regular_usage.html", "https://bolt.github.io/deployer/tips.html", "https://bolt.github.io/deployer/troubleshooting.html"];
 </script>
 <script src="https://bolt.github.io/deployer/tipuesearch/tipuesearch_set.js"></script>
 <script src="https://bolt.github.io/deployer/tipuesearch/tipuesearch.min.js"></script>

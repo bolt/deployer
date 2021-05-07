@@ -1,10 +1,10 @@
-                                                                                                                <!DOCTYPE html>
+                                                                                                                            <!DOCTYPE html>
 <html lang="en">
         <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Initial run &raquo; BoltForms</title>
+        <title>Initial run &raquo; Bolt Deployer</title>
 
         <link rel="stylesheet" href="https://bolt.github.io/deployer/css/main.css">
         <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,600,700" rel="stylesheet">
@@ -16,7 +16,7 @@
                 <div class="docs__sidebar--brand">
                     <div class="brand">
                         <a class="brand--text" href="https://bolt.github.io/deployer/">
-                            BoltForms
+                            Bolt Deployer
                         </a>
                     </div>
                     <button class="button button-bars is-primary is-hidden-desktop">
@@ -68,6 +68,11 @@
                                                                             <li class="">
                     <a href="https://bolt.github.io/deployer/initial_run.html" class="is-active">
                         Initial run
+                    </a>
+                </li>
+                                                                            <li class="">
+                    <a href="https://bolt.github.io/deployer/regular_usage.html" class="">
+                        Regular usage
                     </a>
                 </li>
                                             <li class="divider">Other</li>
@@ -123,13 +128,16 @@
                 <div class="docs__main--body">
                     <section id="content" class="content">
                         <h1 id="initial-run">Initial run</h1>
-<p>In order to do its work, Deployer creates a new build of the site on the remote server, keeping the files it needs to, and intalling the rest. If you'd just run <code>dep deploy</code>, you'd bump into a number of issues, if the remote server isn't yet set up with an initial build of the site.</p>
-<p>Run the following commands:</p>
-<pre><code class="language-bash">dep deploy:prepare
-dep deploy:release
-dep deploy:update_code
-dep deploy:shared</code></pre>
-<p>Now, after logging in using SSH (using your preferred way, or by means of <code>dep ssh</code>), you can see the initial structure created by Deployer for our Bolt projects.</p>
+<p>In order to do its work, Deployer creates a new build of the site on the remote
+server, keeping the files it needs to, and intalling the rest. If you'd just
+run <code>dep deploy</code>, you'd bump into a number of issues, if the remote server
+isn't yet set up with an initial build of the site.</p>
+<p>Run the following command to initialise the <code>test</code> environment:</p>
+<pre><code class="language-bash">dep initialise</code></pre>
+<p>Note: if you're not passing in a stage name with the command, Deployer will
+deploy to the <code>default_stage</code> stage, which you can set in <code>deploy.php</code>.</p>
+<p>Now, after logging in using SSH (using your preferred way, or by means of <code>dep ssh</code>), you can see the initial structure created by Deployer for our Bolt
+projects.</p>
 <pre><code class="language-text">.
 ├── .dep/
 ├── public -&gt; /home/pi/www/knutsel.tech/releases/1/public/
@@ -166,19 +174,42 @@ dep deploy:shared</code></pre>
 21 directories, 25 files</code></pre>
 <p>Inspecting this structure, we'll notice the following interesting parts:</p>
 <ul>
-<li>There's a <code>release</code> symlink, that points to the current release, in the <code>releases</code> folder. After the setup is done, this will be replaced by a <code>current</code> symlink that always points to the current release.</li>
-<li>There's a <code>public</code> symlink. This is the one you will want to point your webserver configuration at, because this will always point to the <code>public/</code> folder in the last succesful deploy.</li>
-<li><code>releases/1/</code> is a checkout of the git repository, that's used for the deployment.</li>
-<li>In it, there's the <code>public/</code> folder, which contains a number of symlinks to various items in the <code>shared</code> folder. This will ensure that what's in here will not get lost on subsequent deploys.</li>
-<li>The <code>shared/</code> folder will contain stubs of files and folders, that will be shared across subsequent deploys.</li>
+<li>There's a <code>release</code> symlink, that points to the current release, in the
+<code>releases</code> folder. After the setup is done, this will be replaced by a
+<code>current</code> symlink that always points to the current release.</li>
+<li>There's a <code>public</code> symlink. This is the one you will want to point your
+webserver configuration at, because this will always point to the <code>public/</code>
+folder in the last succesful deploy.</li>
+<li><code>releases/1/</code> is a checkout of the git repository, that's used for the
+deployment.</li>
+<li>In it, there's the <code>public/</code> folder, which contains a number of symlinks to
+various items in the <code>shared</code> folder. This will ensure that what's in here
+will not get lost on subsequent deploys.</li>
+<li>The <code>shared/</code> folder will contain stubs of files and folders, that will be
+shared across subsequent deploys.</li>
 </ul>
-<p>Now, to get your site-to-be working, you'll need to do the following things:</p>
+<p>Now, to wrap up the configuration of your site-to-be on the webserver side,
+you'll need to do the following things:</p>
 <ul>
-<li>Configure your webserver so that the webroot points to the <code>public</code> symlink. Note that it should <strong>not</strong> point to where the symlink is pointing, because that location is volatile: It will change on every deploy.</li>
+<li>Configure your webserver so that the webroot points to the <code>public</code> symlink.
+Note that it should <strong>not</strong> point to where the symlink is pointing, because
+that location is volatile: It will change on every deploy. You can also
+configure this using the <code>vhost_symlink</code> parameter in your <code>hosts.yaml</code>. See
+the section on the &quot;configuration&quot; page about this topic.</li>
 <li>Place the contents of <code>files/</code> in <code>shared/public/files/</code>.</li>
 <li>If you're using SQLite, place the database file in <code>shared/var/data</code>.</li>
-<li>Apply the environment-specific configuration in <code>shared/.env.local</code> or your <code>ENV</code> settings.</li>
+<li>Apply the environment-specific configuration in <code>shared/.env</code>,
+<code>shared/.env.local</code> or your <code>ENV</code> settings.</li>
+<li>Ensure both the Command-line user and the webserver's user have read/write
+access to the files in <code>shared/</code>. How this is done optimally, depends on how
+the server is configured. To just make them writable to all, use:</li>
 </ul>
+<pre><code class="language-bash">chmod -R 777 shared/.env* shared/public/files shared/var/data/ shared/var/log shared/var/sessions</code></pre>
+<p>Obviously, you'll need to repeat these steps for every environment or 'stage'
+that your project will use. Add the stage name to the command, to run it for
+that environment. For example:</p>
+<pre><code class="language-bash">dep initialise acc
+dep initialise prod</code></pre>
                     </section>
                 </div>
             </main>
@@ -188,7 +219,7 @@ dep deploy:shared</code></pre>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <script>
-var tipuesearch_pages = ["https://bolt.github.io/deployer/index.html", "https://bolt.github.io/deployer/requirements.html", "https://bolt.github.io/deployer/installation.html", "https://bolt.github.io/deployer/configuration.html", "https://bolt.github.io/deployer/initial_run.html", "https://bolt.github.io/deployer/tips.html", "https://bolt.github.io/deployer/troubleshooting.html"];
+var tipuesearch_pages = ["https://bolt.github.io/deployer/index.html", "https://bolt.github.io/deployer/requirements.html", "https://bolt.github.io/deployer/installation.html", "https://bolt.github.io/deployer/configuration.html", "https://bolt.github.io/deployer/initial_run.html", "https://bolt.github.io/deployer/regular_usage.html", "https://bolt.github.io/deployer/tips.html", "https://bolt.github.io/deployer/troubleshooting.html"];
 </script>
 <script src="https://bolt.github.io/deployer/tipuesearch/tipuesearch_set.js"></script>
 <script src="https://bolt.github.io/deployer/tipuesearch/tipuesearch.min.js"></script>

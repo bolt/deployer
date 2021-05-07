@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Installation &raquo; Bolt Deployer</title>
+        <title>Regular usage &raquo; Bolt Deployer</title>
 
         <link rel="stylesheet" href="https://bolt.github.io/deployer/css/main.css">
         <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,600,700" rel="stylesheet">
@@ -55,7 +55,7 @@
                     </a>
                 </li>
                                                                             <li class="">
-                    <a href="https://bolt.github.io/deployer/installation.html" class="is-active">
+                    <a href="https://bolt.github.io/deployer/installation.html" class="">
                         Installation
                     </a>
                 </li>
@@ -71,7 +71,7 @@
                     </a>
                 </li>
                                                                             <li class="">
-                    <a href="https://bolt.github.io/deployer/regular_usage.html" class="">
+                    <a href="https://bolt.github.io/deployer/regular_usage.html" class="is-active">
                         Regular usage
                     </a>
                 </li>
@@ -102,7 +102,7 @@
 
                 <header class="docs__main--header">
     <div class="pagetitle">
-        Installation
+        Regular usage
     </div>
 
             <a href="https://github.com/bolt/deployer" class="button is-info is-hidden-touch" aria-label="This extension on GitHub">
@@ -117,7 +117,7 @@
             </span>
             <span>Fork</span>
         </a>
-                        <a href="https://github.com/bolt/deployer/edit/main/docs/installation.md" class="button is-info is-hidden-touch" aria-label="Edit the contents of this page on GitHub">
+                        <a href="https://github.com/bolt/deployer/edit/main/docs/regular_usage.md" class="button is-info is-hidden-touch" aria-label="Edit the contents of this page on GitHub">
             <span class="icon is-small">
                 <i class="fab fa-github"></i>
             </span>
@@ -127,37 +127,34 @@
     </header>
                 <div class="docs__main--body">
                     <section id="content" class="content">
-                        <h1 id="installation">Installation</h1>
-<p>This Deployer recipe can be used in a number of ways, whichever you prefer. It
-can be used as a stand-alone 'project', so that you can deploy a website,
-without having to have a full local copy of the website itself. You can also
-install it as a dependency of your own project, so that the configuration to
-deploy the site is stored with the project itself.</p>
-<p>Regardless of which option you prefer, you'll need to have <em>both</em> the recipe,
-as well as Deployer itself.</p>
-<h2 id="get-the-recipe">Get the recipe</h2>
-<p>The easiest way to create a stand-alone version is to run the following:</p>
-<pre><code class="language-bash">composer create-project bolt/deployer</code></pre>
-<p>Alternatively, click the <a href="https://github.com/bolt/project/generate">&quot;Use this template&quot;</a>-button on the
-<code>bolt/project</code> repository to instantiate your own repository as a copy of the
-original.</p>
-<p>Lastly, to add it to an existing project, you can run
-<code>composer require --dev bolt/deployer</code> to install it as a dependency of your
-project.</p>
-<h2 id="install-deployer">Install Deployer</h2>
-<p>If you're using the <code>composer create</code>'d version or if you've installed the
-recipe as a dependency, you can run <code>composer install</code> to install Deployer as a
-dependency. You can then run it using <code>vendor/bin/dep</code>.</p>
-<p>You can also install Deployer as a global composer binary. To do so, run</p>
-<pre><code class="language-bash">curl -LO https://deployer.org/deployer.phar
-mv deployer.phar /usr/local/bin/dep
-chmod +x /usr/local/bin/dep</code></pre>
-<p>After doing this, you should be able to run <code>dep</code> from anywhere on your local
-environment.</p>
-<p>If neither of these two work for you, you can get Deployer by <a href="https://deployer.org/download/">downloading the
-Phar file manually</a>, or by running just:</p>
-<pre><code class="language-bash">curl -LO https://deployer.org/deployer.phar</code></pre>
-<p>Now you can run <code>php deployer.phar</code> to run Deployer.</p>
+                        <h1 id="regular-usage">Regular usage</h1>
+<p>After the setup and initialisation of the target environment(s) is done, you're ready to actually start deploying. To do so, run:</p>
+<pre><code class="language-bash">dep deploy</code></pre>
+<p>If all went well, you'll see something like this:</p>
+<pre><code class="language-bash">dep deploy
+✈︎ Deploying main on acc.example.org
+✔ Executing task deploy:prepare
+✔ Executing task deploy:lock
+✔ Executing task deploy:release
+✔ Executing task deploy:update_code
+✔ Executing task deploy:shared
+✔ Executing task deploy:vendors
+✔ Executing task deploy:writable
+✔ Executing task deploy:cache:clear
+✔ Executing task deploy:cache:warmup
+✔ Executing task deploy:symlink
+✔ Executing task bolt:symlink:public
+✔ Executing task deploy:unlock
+✔ Executing task cleanup
+Successfully deployed!</code></pre>
+<p>You can run it for every configured stage, by passing the name of the stage:</p>
+<pre><code class="language-bash">dep deploy prod</code></pre>
+<p>You can also specify which branch you wish to deploy, by passing the <code>--branch</code>
+option:</p>
+<pre><code class="language-bash">dep deploy acc --branch=feature/lets-break-something-tonight</code></pre>
+<p>If the deploy seemingly went well, but you're not seeing the latest version,
+check <a href="troubleshooting.html#restarting-the-webserver">Restarting the webserver</a>
+in the Troubleshooting section.</p>
                     </section>
                 </div>
             </main>
