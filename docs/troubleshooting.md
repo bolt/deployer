@@ -11,7 +11,7 @@ causing the breakage.
 ![borken](https://user-images.githubusercontent.com/1833361/117442709-6a838b80-af37-11eb-983e-123d759320a8.png)
 
 In the screenshot above you'll notice that it breaks on `deploy:update_code`,
-as indicated by the `➤` before Deployer wraps up the failed deploy. You can
+as indicated by the `➤`, before Deployer wraps up the failed deploy. You can
 investigate by running just that step, and outputting verbose debug
 information:
 

@@ -16,8 +16,8 @@ include:
 branch: gh-pages
 baseUrl: https://bolt.github.io/deployer
 
-title: BoltForms
-subTitle: A Bolt extension to make forms.
+title: Bolt Deployer
+subTitle: A Bolt recipe for Deployer.
 github:
     user: bolt
     repo: deployer

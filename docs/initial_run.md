@@ -82,8 +82,8 @@ you'll need to do the following things:
   the section on the "configuration" page about this topic.
 - Place the contents of `files/` in `shared/public/files/`.
 - If you're using SQLite, place the database file in `shared/var/data`.
-- Apply the environment-specific configuration in `shared/.env.local` or your
-  `ENV` settings.
+- Apply the environment-specific configuration in `shared/.env`,
+  `shared/.env.local` or your `ENV` settings.
 - Ensure both the Command-line user and the webserver's user have read/write
   access to the files in `shared/`. How this is done optimally, depends on how
   the server is configured. To just make them writable to all, use:

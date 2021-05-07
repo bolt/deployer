@@ -26,3 +26,6 @@ This documentation is split in a few parts to get you up and running:
 
 In the sidebar on the left, you'll also find two pages with Tips and
 information for Troubleshooting.
+
+[dep]: https://deployer.org
+[bolt]: https://boltcms.io
