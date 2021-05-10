@@ -11,7 +11,7 @@ add('shared_dirs', ['public/files', 'var/data']);
 add('writable_dirs', ['public/files', 'public/thumbs', 'var/', 'config/']);
 set('allow_anonymous_stats', false);
 set('git_tty', false);
-set('ssh_multiplexing', true);
+set('ssh_multiplexing', false);
 set('vhost_symlink', null);
 
 set('bin/console', function () {
