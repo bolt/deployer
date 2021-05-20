@@ -18,6 +18,10 @@ set('bin/console', function () {
     return parse('{{release_path}}/bin/console --no-interaction');
 });
 
+set('branch', function () {
+    return input()->getOption('branch') ?: get('default_branch');
+});
+
 // Tasks
 task('bolt:symlink:public', function () {
     if (get('vhost_symlink')) {
@@ -30,8 +34,14 @@ task('bolt:init-env', function () {
     run('if [ ! -s {{deploy_path}}/shared/.env ]; then cat {{release_path}}/.env.dist > {{deploy_path}}/shared/.env; fi');
 });
 
+desc('Run the "wrap up"-script');
+task('bolt:wrap-up', function () {
+    run('if [ ! -s {{deploy_path}}/wrap-up.sh ]; then cd {{deploy_path}}; ./wrap-up.sh; fi');
+});
+
 after('deploy:failed', 'deploy:unlock');
 after('deploy:symlink', 'bolt:symlink:public');
+after('deploy:symlink', 'bolt:wrap-up');
 // after('bolt:symlink:public', 'bolt:init-env');
 
 desc('Initialise project');
