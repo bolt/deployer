@@ -20,7 +20,7 @@ The task-tree for deploy:
 │   ├── deploy:cache:warmup
 │   ├── deploy:symlink
 │   ├── bolt:symlink:public [after:deploy:symlink]
-│   ├── bolt:init-env [after:bolt:symlink:public]
+│   ├── bolt:wrap-up [after:deploy:symlink]
 │   ├── deploy:unlock
 │   └── cleanup
 ├── success [after:deploy]
@@ -40,3 +40,26 @@ To log in to the target environment, use `dep ssh` to get a list of the availabl
 ![ssh](https://user-images.githubusercontent.com/1833361/117148769-d68ab600-adb6-11eb-9a11-69cdf3c70ff3.png)
 
 Alternatively, run `dep ssh name`, to directly log into that environment.
+
+## Running a shell script after deploy
+
+Depending on the configuration of your webhost, or specific project needs, you
+might want to run a shell script on the target machine after a succesful
+deployment.
+
+To do so, simply create a shell script in the main deployer folder, where
+`releases` and `shared` reside. Name it `wrap-up.sh`, and make sure it's
+executable. If that script is present, the recipe will automatically run it.
+
+For a trivial example, see:
+
+```bash
+#!/usr/bin/env bash
+
+PHP=`which php`
+
+echo "Wrapping up!"
+
+cd current
+$PHP bin/console app:do-the-right-thing
+```
