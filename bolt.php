@@ -36,7 +36,7 @@ task('bolt:init-env', function () {
 
 desc('Run the "wrap up"-script');
 task('bolt:wrap-up', function () {
-    run('if [ ! -s {{deploy_path}}/wrap-up.sh ]; then cd {{deploy_path}}; ./wrap-up.sh; fi');
+    run('if [ -x {{deploy_path}}/wrap-up.sh ]; then cd {{deploy_path}}; ./wrap-up.sh; fi');
 });
 
 after('deploy:failed', 'deploy:unlock');
