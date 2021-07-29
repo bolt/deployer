@@ -45,3 +45,5 @@ menu:
         label: Tips
     troubleshooting.md:
         label: Troubleshooting
+    custom_binary_paths.md:
+        label: Custom binary paths
