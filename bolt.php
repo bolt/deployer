@@ -18,6 +18,34 @@ set('bin/console', function () {
     return parse('{{release_path}}/bin/console --no-interaction');
 });
 
+set('bin/php', function () {
+    $bin = get('bin', []);
+    return isset($bin['php']) ? $bin['php'] : locateBinaryPath('php');
+});
+
+set('bin/git', function () {
+    $bin = get('bin', []);
+    return isset($bin['git']) ? $bin['git'] : locateBinaryPath('git');
+});
+
+set('bin/composer', function () {
+    $bin = get('bin', []);
+    if (isset($bin['composer'])) {
+        return $bin['composer'];
+    }
+
+    if (commandExist('composer')) {
+        $composer = locateBinaryPath('composer');
+    }
+
+    if (empty($composer)) {
+        run("cd {{release_path}} && curl -sS https://getcomposer.org/installer | {{bin/php}}");
+        $composer = '{{bin/php}} {{release_path}}/composer.phar';
+    }
+
+    return $composer;
+});
+
 set('branch', function () {
     return input()->getOption('branch') ?: get('default_branch');
 });
@@ -54,3 +82,9 @@ task('initialise', [
     'bolt:symlink:public',
     'bolt:init-env',
 ]);
+
+task('version-info', function () {
+    run('{{bin/php}} -v');
+    run('{{bin/git}} --version');
+    run('{{bin/composer}} --version');
+});

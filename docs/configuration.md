@@ -35,6 +35,7 @@ The first and foremost thing to configure is the `hosts.yaml` file.
 #  <<: *base: Sets all values from `.base` as defaults. Override if needed
 #  - hostname: IP-address or hostname to SSH into
 #  - user: SSH username. Ideally set up as passwordless login
+#  - port: SSH port number. Specify, if the server doesn't have SSH on the default port 22
 #  - deploy_path: Base path to deploy in
 #  - stage: name of the stage. Used in `dep deploy [stagename]`
 
@@ -49,6 +50,7 @@ acc:
     <<: *base
     stage: acc
     hostname: web01.example.org
+    port: 8899
     user: username
     deploy_path: /var/www/acc.example.org
 
