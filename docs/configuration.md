@@ -113,7 +113,7 @@ Check the [Hosts page][hosts] at the Deployer site for all options.
 
 [dtap]: https://www.phparch.com/2009/07/professional-programming-dtap-%e2%80%93-part-1-what-is-dtap/
 [ssh-keys]: https://linuxize.com/post/how-to-setup-passwordless-ssh-login/
-[hosts]: https://deployer.org/docs/hosts.html
+[hosts]: https://deployer.org/docs/6.x/hosts
 [recipe]: https://github.com/deployphp/deployer/tree/master/recipe
 [tasks]: https://github.com/deployphp/deployer/tree/master/recipe/deploy
 [deployer]: https://deployer.org/docs/hosts.html
