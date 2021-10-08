@@ -2,7 +2,7 @@ Initial run
 ===========
 
 In order to do its work, Deployer creates a new build of the site on the remote
-server, keeping the files it needs to, and intalling the rest. If you'd just
+server, keeping the files it needs to, and installing the rest. If you'd just
 run `dep deploy`, you'd bump into a number of issues, if the remote server
 isn't yet set up with an initial build of the site.
 
