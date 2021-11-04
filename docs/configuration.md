@@ -14,11 +14,15 @@ examples, but you can substitute these for your usecase.
 Initial configuration
 ---------------------
 
-This tool comes with three files where you can configure its workings (path: `vendor/bolt/deployer`):
+This tool comes with three files where you can configure its workings:
 
 - `hosts.yaml` - YAML configuration of the target hosts to deploy to 
 - `deploy.php` - The configuration of the recipe, using Deployer
 - `bolt.php` - The Bolt specific Deployer recipe configuration
+
+Depending on how you've installed this tool, these files are in the project 
+root (for standalone installations) or in the `vendor/bolt/deployer` 
+(for Composer installations).
 
 The first and foremost thing to configure is the `hosts.yaml` file.
 
