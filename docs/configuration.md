@@ -85,7 +85,7 @@ To verify the configuration of the configured hosts, run `dep config:hosts`.
 `deploy_path` and `vhost_symlink` determine where Deployer will put its files, and it allows you to keep an always up-to-date symlink to the latest deployment. This is handy for two different scenarios:
 
 - If you can configure the location of the vhost in your webserver's
-  configuration, simply set it to `…/deployer/current`, whit points to the
+  configuration, simply set it to `…/deployer/current`, which points to the
   latest succesful release. You can then set `vhost_symlink: ~`, to prevent
   additional symlinks to be set up.
 - If you can not configure the location, `vhost_symlink` allows for the reverse:
