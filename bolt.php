@@ -67,9 +67,15 @@ task('bolt:wrap-up', function () {
     run('if [ -x {{deploy_path}}/wrap-up.sh ]; then cd {{deploy_path}}; ./wrap-up.sh; fi');
 });
 
+desc('Run the "warm up"-script');
+task('bolt:warm-up', function () {
+    run('if [ -x {{deploy_path}}/warm-up.sh ]; then cd {{deploy_path}}; ./warm-up.sh; fi');
+});
+
 after('deploy:failed', 'deploy:unlock');
 after('deploy:symlink', 'bolt:symlink:public');
 after('deploy:symlink', 'bolt:wrap-up');
+after('deploy:prepare', 'bolt:warm-up');
 // after('bolt:symlink:public', 'bolt:init-env');
 
 desc('Initialise project');
