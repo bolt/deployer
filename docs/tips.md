@@ -41,10 +41,35 @@ To log in to the target environment, use `dep ssh` to get a list of the availabl
 
 Alternatively, run `dep ssh name`, to directly log into that environment.
 
+
+## Running a shell script before deploy
+
+Depending on the configuration of your webhost or specific project needs, you
+might want to run a shell script on the target machine before an attempted
+deployment.
+
+To do so, simply create a shell script in the main deployer folder, where
+`releases` and `shared` reside. Name it `warm-up.sh`, and make sure it's
+executable. If that script is present, the recipe will automatically run it.
+
+For a trivial example, see:
+
+```bash
+#!/usr/bin/env bash
+
+PHP=`which php`
+
+echo "All warmed up, and ready to go!"
+
+cd current
+$PHP bin/console app:do-the-right-thing
+```
+
+
 ## Running a shell script after deploy
 
-Depending on the configuration of your webhost, or specific project needs, you
-might want to run a shell script on the target machine after a succesful
+Depending on the configuration of your webhost or specific project needs, you
+might want to run a shell script on the target machine after a successful
 deployment.
 
 To do so, simply create a shell script in the main deployer folder, where
